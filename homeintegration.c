@@ -1247,6 +1247,9 @@ homekit_service_t* hap_add_service(homekit_service_t* service ){
 
 	return service;
 }
+void hap_setinitial_characteristic_float_value(homekit_service_t* s, const char *type,float val ) {
+	hap_set_initial_characteristic_float_value(homekit_service_characteristic_by_type(s, type), val);
+}
 void hap_setinitial_characteristic_int_value(homekit_service_t* s, const char *type,int val ) {
 	hap_set_initial_characteristic_int_value(homekit_service_characteristic_by_type(s, type), val);
 }
@@ -1254,6 +1257,20 @@ void hap_setinitial_characteristic_bool_value(homekit_service_t* s, const char *
 	hap_set_initial_characteristic_bool_value(homekit_service_characteristic_by_type(s, type), val);
 }
 
+void hap_set_initial_characteristic_float_value(homekit_characteristic_t* ch, float val) {
+	if (!ch
+		||
+		(ch->format != homekit_format_float)
+		)
+	{
+		ERROR("Wrong default value\n");
+		return;
+	}
+	ch->value.float_value = hap_constrain(val, *ch->min_value, *ch->max_value);
+	if (ch->value.float_value != val) {
+		ERROR("Default value is out of range, Set %d instead", ch->value.float_value);
+	}
+}
 void hap_set_initial_characteristic_int_value(homekit_characteristic_t* ch, int val) {
 	if (!ch
 		||
