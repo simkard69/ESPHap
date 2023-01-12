@@ -190,9 +190,11 @@ type name() { \
 #define INIT_CHARACHTERISTIC_VAL_BY_TYPE(type,service,ch,val) \
 		hap_setinitial_characteristic_##type##_value(service,ch,val);
 
+	void hap_setinitial_characteristic_float_value(homekit_service_t* s, const char *type, float val);
 	void hap_setinitial_characteristic_int_value(homekit_service_t* s, const char *type, int val);
 	void hap_setinitial_characteristic_bool_value(homekit_service_t* s, const char *type, bool val);
 
+	void hap_set_initial_characteristic_float_value(homekit_characteristic_t* ch, float val);
 	void hap_set_initial_characteristic_int_value(homekit_characteristic_t* ch, int val);
 	void hap_set_initial_characteristic_bool_value(homekit_characteristic_t* ch, bool bval);
 	//elgato
